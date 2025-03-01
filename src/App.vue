@@ -1,30 +1,26 @@
-<script setup>
-import HelloWorld from './components/HelloWorld.vue'
-</script>
-
 <template>
-  <div>
-    <a href="https://vite.dev" target="_blank">
-      <img src="/vite.svg" class="logo" alt="Vite logo" />
-    </a>
-    <a href="https://vuejs.org/" target="_blank">
-      <img src="./assets/vue.svg" class="logo vue" alt="Vue logo" />
-    </a>
+  <div id="app">
+    <router-view />
   </div>
-  <HelloWorld msg="Vite + Vue" />
 </template>
 
-<style scoped>
-.logo {
-  height: 6em;
-  padding: 1.5em;
-  will-change: filter;
-  transition: filter 300ms;
-}
-.logo:hover {
-  filter: drop-shadow(0 0 2em #646cffaa);
-}
-.logo.vue:hover {
-  filter: drop-shadow(0 0 2em #42b883aa);
-}
-</style>
+<script>
+export default {
+  name: 'App',
+  // 로그인 여부 예시 (실제로는 상태 관리 라이브러리 사용 권장)
+  data() {
+    return {
+      // isLoggedIn: false, // 실제로는 localStorage 등에서 가져와야 함
+      isLoggedIn: true, // 실제로는 localStorage 등에서 가져와야 함
+    };
+  },
+  created() {
+    // 로그인 여부 확인하여 라우팅
+    if (!this.isLoggedIn) {
+      this.$router.push('/login');
+    } else {
+      this.$router.push('/main');
+    }
+  },
+};
+</script>
