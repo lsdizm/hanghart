@@ -1,49 +1,59 @@
 <template>
-    <v-app>
-      <v-navigation-drawer v-model="drawer" temporary>
-        <DrawerMenu @close="drawer = false" />
-      </v-navigation-drawer>
-  
-      <v-app-bar color="primary" dark>
-        <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
-        <v-app-bar-title>Hanghart</v-app-bar-title>
-        <v-spacer></v-spacer>
-        <v-btn @click="showUserInfo">사용자 정보</v-btn>
-        <v-btn @click="showSettings">설정</v-btn>
-      </v-app-bar>
-  
-      <v-main>
-        <v-container>
-          <router-view />
-        </v-container>
-      </v-main>
-    </v-app>
-  </template>
-  
-  <script>
-  import DrawerMenu from './DrawerMenu.vue';
-  
-  export default {
-    name: 'MainLayout',
-    components: {
-      DrawerMenu,
-    },
-    data() {
-      return {
-        drawer: false,
-      };
-    },
-    methods: {
-      showUserInfo() {
-        this.$router.push('/userInfo');
-      },
-      showSettings() {
-        this.$router.push('/settings');
-      },
-    },
-  };
-  </script>
-  
-  <style>
-  </style>
-  
+  <v-layout>
+    <v-app-bar>
+      <v-app-bar-nav-icon @click.stop="drawer = !drawer"></v-app-bar-nav-icon>
+      <v-app-bar-title>My App</v-app-bar-title>
+      <v-spacer></v-spacer>
+
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-account" v-bind="props"></v-btn>
+        </template>
+        <v-list>
+          <v-list-item :to="{ path: '/main/user-info' }" link @click="drawer = false">
+            <v-list-item-title>유저 정보</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+
+      <v-menu>
+        <template v-slot:activator="{ props }">
+          <v-btn icon="mdi-cog" v-bind="props"></v-btn>
+        </template>
+        <v-list>
+          <v-list-item :to="{ path: '/main/settings' }" link @click="drawer = false">
+            <v-list-item-title>설정</v-list-item-title>
+          </v-list-item>
+        </v-list>
+      </v-menu>
+    </v-app-bar>
+
+    <v-navigation-drawer v-model="drawer" :rail="rail" permanent>
+      <DrawerMenu @close="drawer = false" /> </v-navigation-drawer>
+
+    <v-main>
+      <v-container>
+        <router-view />
+      </v-container>
+    </v-main>
+  </v-layout>
+</template>
+
+<script>
+import DrawerMenu from './DrawerMenu.vue'; // Correct import path
+
+export default {
+  name: 'MainLayout',
+  components: {
+    DrawerMenu, // Correctly register DrawerMenu component
+  },
+  data() {
+    return {
+      drawer: true,
+      rail: false,
+    };
+  },
+};
+</script>
+
+<style scoped></style>

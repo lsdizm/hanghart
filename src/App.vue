@@ -10,8 +10,7 @@ export default {
   // 로그인 여부 예시 (실제로는 상태 관리 라이브러리 사용 권장)
   data() {
     return {
-      // isLoggedIn: false, // 실제로는 localStorage 등에서 가져와야 함
-      isLoggedIn: true, // 실제로는 localStorage 등에서 가져와야 함
+      isLoggedIn: false, // 실제로는 localStorage 등에서 가져와야 함      
     };
   },
   created() {

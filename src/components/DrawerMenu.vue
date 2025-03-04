@@ -1,35 +1,29 @@
 <template>
-    <v-list>
-      <v-list-item
-        v-for="(item, i) in menuItems"
-        :key="i"
-        :to="item.to"
-        link
-        @click="$emit('close')"
-      >
-        <v-list-item-title>{{ item.title }}</v-list-item-title>
-      </v-list-item>
-    </v-list>
-  </template>
-  
-  <script>
-  export default {
-    name: 'DrawerMenu',
-    emits: ['close'],
-    data() {
-      return {
-        menuItems: [
-          { title: '대시보드', to: '/main/dashboard' },
-          { title: '재고 현황', to: '/main/inventory' },
-          { title: '입고', to: '/main/incoming' },
-          { title: '출고', to: '/main/outgoing' },
-          { title: '물품 관리', to: '/main/item-management' },
-        ],
-      };
-    },
-  };
-  </script>
-  
-  <style>
-  </style>
-  
+  <v-list>
+    <v-list-item
+      v-for="item in menuItems"
+      :key="item.name"
+      :to="item.path"
+      link
+      @click="$emit('close')"
+    >
+      <v-list-item-title>{{ item.name }}</v-list-item-title>
+    </v-list-item>
+  </v-list>
+</template>
+
+<script>
+import routeData from '../router/routes';
+
+export default {
+  name: 'DrawerMenu',
+  emits: ['close'],
+  data() {
+    return {
+      menuItems: routeData.filter((route) => route.meta?.requiresAuth), // 인증이 필요한 메뉴만 필터링
+    };
+  },
+};
+</script>
+
+<style scoped></style>
